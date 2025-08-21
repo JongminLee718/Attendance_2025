@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include "user.h"
 #include "grade.h"
 
@@ -45,6 +45,20 @@ void soccerUser::SetUserGrade()
 	}
 }
 
+int soccerUser::GetUserCnt() {
+	return userCnt;
+}
+
+int soccerUser::GetUserGrade(std::string name) {
+	int userIdx = user[name];
+	return userGrade[userIdx];
+}
+
+int soccerUser::GetUserPoint(std::string name) {
+	int userIdx = user[name];
+	return userPoint[userIdx];
+}
+
 void soccerUser::PrintUserResult()
 {
 	for (int userIdx = 1; userIdx <= userCnt; userIdx++) {
@@ -58,14 +72,18 @@ void soccerUser::PrintUserResult()
 	}
 }
 
-void soccerUser::PrintRemovedPlayer()
+int soccerUser::PrintRemovedPlayer()
 {
+	int result = 0;
 	std::cout << "\n";
 	std::cout << "Removed player\n";
 	std::cout << "==============\n";
 	for (int userIdx = 1; userIdx <= userCnt; userIdx++) {
 		if (userGrade[userIdx] == NORMAL && wedCnt[userIdx] == 0 && weekenCnt[userIdx] == 0) {
 			std::cout << names[userIdx] << "\n";
+			result++;
 		}
 	}
+	return result;
 }
+

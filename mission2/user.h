@@ -12,7 +12,10 @@ public:
 	int GetWeekdayPoint(std::string& weekday);
 	void SetUserGrade();
 	void PrintUserResult();
-	void PrintRemovedPlayer();
+	int PrintRemovedPlayer();
+	int GetUserCnt();
+	int GetUserGrade(std::string name);
+	int GetUserPoint(std::string name);
 
 private:
 	std::map<std::string, int> user;

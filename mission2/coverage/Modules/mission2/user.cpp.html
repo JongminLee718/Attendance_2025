@@ -9,7 +9,7 @@
     <body onload="prettyPrint()">
         <h4></h4>
         <pre class="prettyprint lang-cpp linenums">
-#include &lt;iostream&gt;
+
 #include "user.h"
 #include "grade.h"
 
@@ -56,6 +56,20 @@ void soccerUser::SetUserGrade()
 	}
 }</span>
 
+<span style = "background-color:#dfd">int soccerUser::GetUserCnt() {
+	return userCnt;
+}</span>
+
+<span style = "background-color:#dfd">int soccerUser::GetUserGrade(std::string name) {
+	int userIdx = user[name];
+	return userGrade[userIdx];
+}</span>
+
+<span style = "background-color:#dfd">int soccerUser::GetUserPoint(std::string name) {
+	int userIdx = user[name];
+	return userPoint[userIdx];
+}</span>
+
 void soccerUser::PrintUserResult()
 <span style = "background-color:#dfd">{
 	for (int userIdx = 1; userIdx &lt;= userCnt; userIdx++) {
@@ -69,17 +83,21 @@ void soccerUser::PrintUserResult()
 	}
 }</span>
 
-void soccerUser::PrintRemovedPlayer()
+int soccerUser::PrintRemovedPlayer()
 <span style = "background-color:#dfd">{
+	int result = 0;
 	std::cout &lt;&lt; "\n";
 	std::cout &lt;&lt; "Removed player\n";
 	std::cout &lt;&lt; "==============\n";
 	for (int userIdx = 1; userIdx &lt;= userCnt; userIdx++) {
 		if (userGrade[userIdx] == NORMAL &amp;&amp; wedCnt[userIdx] == 0 &amp;&amp; weekenCnt[userIdx] == 0) {
-			std::cout &lt;&lt; names[userIdx] &lt;&lt; "\n";</span>
+			std::cout &lt;&lt; names[userIdx] &lt;&lt; "\n";
+			result++;</span>
 		}
 <span style = "background-color:#dfd">	}
-}</span></pre>
+	return result;
+}</span>
+</pre>
         <hr />
         <table width="100%">
             <thead>
