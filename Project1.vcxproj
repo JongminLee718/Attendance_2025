@@ -22,9 +22,6 @@
     <ClCompile Include="attendance.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="attendance_weekday_500.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

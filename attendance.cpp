@@ -7,132 +7,136 @@
 
 using namespace std;
 
-struct Node {
-	string w;
-	string wk;
+enum {
+	MON,
+	TUE,
+	WED,
+	THU,
+	FRI,
+	SAT,
+	SUN
 };
 
-map<string, int> id1;
-int id_cnt = 0;
+map<string, int> user;
+int userCnt = 0;
+static const int MAX_USER = 100;
+static const int MAX_WEEKDAY = 7;
+static const int MAX_INPUT = 500;
 
 //dat[사용자ID][요일]
-int dat[100][100];
-int points[100];
-int grade[100];
-string names[100];
+int userWeekdayCnt[MAX_USER][MAX_WEEKDAY];
+int points[MAX_USER];
+int grade[MAX_USER];
+string names[MAX_USER];
 
-int wed[100];
-int weeken[100];
+int wedCnt[MAX_USER];
+int weekenCnt[MAX_USER];
 
-void input2(string w, string wk) {
+const int GOLD = 1;
+const int SILVER = 2;
+const int NOMRAL = 0;
+const int SPECIAL_DAY_POINT = 10;
+const int SPECIAL_DAY_TH = 10;
+const int GOLD_SCORE_TH = 50;
+const int SILVER_SCORE_TH = 30;
+
+int GetWeekdayIdx(std::string& weekday);
+int GetWeekdayPoint(std::string& weekday);
+void SetSpecialDayCnt(std::string& weekday, int curUser);
+void PrintRemovedPlayer();
+void PrintUserResult();
+
+void SetUserData(string name, string weekday) {
 	//ID 부여
-	if (id1.count(w) == 0) {
-		id1.insert({ w, ++id_cnt });
+	if (user.count(name) == 0) {
+		user.insert({ name, ++userCnt });
+		names[userCnt] = name;
+	}
+	int curUser = user[name];
 
-		if (w == "Daisy") {
-			int debug = 1;
-		}
-
-		names[id_cnt] = w;
-	}
-	int id2 = id1[w];
-
-	//디버깅용
-	if (w == "Daisy") {
-		int debug = 1;
-	}
-
-
-	int add_point = 0;
-	int index = 0;
-	if (wk == "monday") {
-		index = 0;
-		add_point++;
-	}
-	if (wk == "tuesday") {
-		index = 1;
-		add_point++;
-	}
-	if (wk == "wednesday") {
-		index = 2;
-		add_point += 3;
-		wed[id2] += 1;
-	}
-	if (wk == "thursday") {
-		index = 3;
-		add_point++;
-	}
-	if (wk == "friday") {
-		index = 4;
-		add_point++;
-	}
-	if (wk == "saturday") {
-		index = 5;
-		add_point += 2;
-		weeken[id2] += 1;
-	}
-	if (wk == "sunday") {
-		index = 6;
-		add_point += 2;
-		weeken[id2] += 1;
-	}
+	SetSpecialDayCnt(weekday, curUser);
 
 	//사용자ID별 요일 데이터에 1씩 증가
-	dat[id2][index] += 1;
-	points[id2] += add_point;
+	userWeekdayCnt[curUser][GetWeekdayIdx(weekday)] += 1;
+	points[curUser] += GetWeekdayPoint(weekday);
 }
 
 void input() {
-	ifstream fin{ "attendance_weekday_500.txt" }; //500개 데이터 입력
-	for (int i = 0; i < 500; i++) {
-		string t1, t2;
-		fin >> t1 >> t2;
-		input2(t1, t2);
+	ifstream fin{ "attendance_weekday_500.txt" };
+	for (int i = 0; i < MAX_INPUT; i++) {
+		string name, weekday;
+		fin >> name >> weekday;
+		SetUserData(name, weekday);
 	}
 
-	for (int i = 1; i <= id_cnt; i++) {
-		if (dat[i][2] > 9) {
-			points[i] += 10;
-		}
+	for (int userIdx = 1; userIdx <= userCnt; userIdx++) {
+		if (userWeekdayCnt[userIdx][WED] >= SPECIAL_DAY_TH) points[userIdx] += SPECIAL_DAY_POINT;
+		if (userWeekdayCnt[userIdx][SAT] + userWeekdayCnt[userIdx][SUN] >= SPECIAL_DAY_TH) points[userIdx] += SPECIAL_DAY_POINT;
+	}
 
-		if (dat[i][5] + dat[i][6] > 9) {
-			points[i] += 10;
-		}
+	for (int userIdx = 1; userIdx <= userCnt; userIdx++) {
+		if (points[userIdx] >= GOLD_SCORE_TH) grade[userIdx] = GOLD;
+		else if (points[userIdx] >= SILVER_SCORE_TH) grade[userIdx] = SILVER;
+		else grade[userIdx] = NOMRAL;
+	}
 
-		if (points[i] >= 50) {
-			grade[i] = 1;
-		}
-		else if (points[i] >= 30) {
-			grade[i] = 2;
-		}
-		else {
-			grade[i] = 0;
-		}
+	PrintUserResult();
+	PrintRemovedPlayer();
+}
 
-		cout << "NAME : " << names[i] << ", ";
-		cout << "POINT : " << points[i] << ", ";
+void PrintUserResult()
+{
+	for (int userIdx = 1; userIdx <= userCnt; userIdx++) {
+		cout << "NAME : " << names[userIdx] << ", ";
+		cout << "POINT : " << points[userIdx] << ", ";
 		cout << "GRADE : ";
 
-		if (grade[i] == 1) {
+		if (grade[userIdx] == GOLD) {
 			cout << "GOLD" << "\n";
 		}
-		else if (grade[i] == 2) {
+		else if (grade[userIdx] == SILVER) {
 			cout << "SILVER" << "\n";
 		}
 		else {
 			cout << "NORMAL" << "\n";
 		}
 	}
+}
 
+void PrintRemovedPlayer()
+{
 	std::cout << "\n";
 	std::cout << "Removed player\n";
 	std::cout << "==============\n";
-	for (int i = 1; i <= id_cnt; i++) {
-
-		if (grade[i] != 1 && grade[i] != 2 && wed[i] == 0 && weeken[i] == 0) {
-			std::cout << names[i] << "\n";
+	for (int userIdx = 1; userIdx <= userCnt; userIdx++) {
+		if (grade[userIdx] != GOLD && grade[userIdx] != SILVER && wedCnt[userIdx] == 0 && weekenCnt[userIdx] == 0) {
+			std::cout << names[userIdx] << "\n";
 		}
 	}
+}
+
+void SetSpecialDayCnt(std::string& weekday, int curUser)
+{
+	if (weekday == "wednesday") wedCnt[curUser] += 1;
+	if (weekday == "saturday" || weekday == "sunday") weekenCnt[curUser] += 1;
+}
+
+int GetWeekdayPoint(std::string& weekday)
+{
+	if (weekday == "monday" || weekday == "tuesday" || weekday == "thursday" || weekday == "friday") return 1;
+	if (weekday == "saturday" || weekday == "sunday") return 2;
+	if (weekday == "wednesday") return 3;
+}
+
+int GetWeekdayIdx(std::string& weekday)
+{
+	if (weekday == "monday") return MON;
+	if (weekday == "tuesday") return TUE;
+	if (weekday == "wednesday") return WED;
+	if (weekday == "thursday") return THU;
+	if (weekday == "friday") return FRI;
+	if (weekday == "saturday") return SAT;
+	if (weekday == "sunday") return SUN;
 }
 
 int main() {
