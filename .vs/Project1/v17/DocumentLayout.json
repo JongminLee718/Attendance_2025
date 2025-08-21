@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\Project1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CA9E9C3D-9303-46F9-951C-17F31018C7A8}|Project1.vcxproj|C:\\Users\\User\\source\\repos\\Project1\\attendance.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CA9E9C3D-9303-46F9-951C-17F31018C7A8}|Project1.vcxproj|solutionrelative:attendance.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA9E9C3D-9303-46F9-951C-17F31018C7A8}|Project1.vcxproj|C:\\Users\\User\\source\\repos\\Project1\\attendance_weekday_500.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CA9E9C3D-9303-46F9-951C-17F31018C7A8}|Project1.vcxproj|solutionrelative:attendance_weekday_500.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "attendance_weekday_500.txt",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Project1\\attendance_weekday_500.txt",
+              "RelativeDocumentMoniker": "attendance_weekday_500.txt",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Project1\\attendance_weekday_500.txt",
+              "RelativeToolTip": "attendance_weekday_500.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-08-20T23:49:44.991Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "attendance.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Project1\\attendance.cpp",
+              "RelativeDocumentMoniker": "attendance.cpp",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Project1\\attendance.cpp",
+              "RelativeToolTip": "attendance.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-08-20T23:46:24.544Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
